@@ -4,8 +4,9 @@ const autoprefixer = require('autoprefixer');
 
 const config = {
   entry: [
+    'babel-polyfill',
     'webpack-hot-middleware/client?reload=true',
-    path.resolve(__dirname, './src/index'),
+    path.resolve(__dirname, './src/client'),
   ],
 
   output: {
@@ -67,7 +68,7 @@ const config = {
           {
             loader: 'url-loader',
             options: {
-              limit: DEVELOPMENT ? 0 : 16384,
+              limit: 0,
               name: 'assets/[hash:base64:10].[ext]',
             },
           },

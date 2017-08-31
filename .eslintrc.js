@@ -4,5 +4,8 @@ module.exports = {
         "react",
         "jsx-a11y",
         "import"
-    ]
+    ],
+    "rules": {
+        "jsx-a11y/href-no-hash": "off", 
+    }
 };

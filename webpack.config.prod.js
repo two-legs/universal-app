@@ -5,6 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
   entry: [
+    'babel-polyfill',
     path.resolve(__dirname, './src/index'),
   ],
 
@@ -70,7 +71,7 @@ const config = {
           {
             loader: 'url-loader',
             options: {
-              limit: DEVELOPMENT ? 0 : 16384,
+              limit: 16384,
               name: 'assets/[hash:base64:10].[ext]',
             },
           },
