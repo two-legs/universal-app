@@ -3,10 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { renderRoutes } from 'react-router-config';
+import { Provider } from 'react-redux';
 import routes from './routes';
+import createStore from './store';
 
-
-function renderFullPage(html) {
+function renderFullPage(html, initialState) {
   return `
     <!DOCTYPE html>
       <html>
@@ -18,7 +19,8 @@ function renderFullPage(html) {
       </head>
       <body>
         <div id="root">${html}</div>
-        <script type="application/javascript" src="/bundle.js"></script>
+        <script type="text/javascript">window.__REDUX_STATE__=${JSON.stringify(initialState)}</script>
+        <script type="text/javascript" src="/bundle.js"></script>
       </body>
     </html>
   `;
@@ -26,10 +28,15 @@ function renderFullPage(html) {
 
 function renderApp(req, res) {
   const context = {};
+  const initialState = { value: 1 };
+  const store = createStore();
+
   const html = ReactDOM.renderToString(
-    <StaticRouter location={req.url} context={context}>
-      {renderRoutes(routes)}
-    </StaticRouter>,
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={context}>
+        {renderRoutes(routes)}
+      </StaticRouter>
+    </Provider>,
   );
 
   if (context.url) {
@@ -38,7 +45,7 @@ function renderApp(req, res) {
     });
     res.end();
   } else {
-    res.send(renderFullPage(html));
+    res.send(renderFullPage(html, initialState));
   }
 }
 

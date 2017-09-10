@@ -83,8 +83,8 @@ const config = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.NamedModulesPlugin(),
   ],
-   
-  devtool: 'eval',
+ 
+  devtool: 'cheap-eval-source-map',
 
   stats: {
     color: true,

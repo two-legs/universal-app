@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 
 export default combineReducers({
-  main: store => store,
+  main: (state = {}, action) => state,
 });
