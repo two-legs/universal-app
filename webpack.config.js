@@ -78,12 +78,13 @@ const config = {
   },
 
   plugins: [
+    new webpack.EnvironmentPlugin(['NODE_ENV']),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.NamedModulesPlugin(),
   ],
    
-  devtool: 'source-map-eval',
+  devtool: 'eval',
 
   stats: {
     color: true,

@@ -1,6 +1,10 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import App from './containers/App/App';
+import { StaticRouter } from 'react-router';
+import { renderRoutes } from 'react-router-config';
+import routes from './routes';
+
 
 function renderFullPage(html) {
   return `
@@ -21,9 +25,21 @@ function renderFullPage(html) {
 }
 
 function renderApp(req, res) {
-  const html = ReactDOM.renderToString(<App />);
+  const context = {};
+  const html = ReactDOM.renderToString(
+    <StaticRouter location={req.url} context={context}>
+      {renderRoutes(routes)}
+    </StaticRouter>,
+  );
 
-  return res.send(renderFullPage(''));
+  if (context.url) {
+    res.writeHead(301, {
+      Location: context.url,
+    });
+    res.end();
+  } else {
+    res.send(renderFullPage(html));
+  }
 }
 
 module.exports = renderApp;
