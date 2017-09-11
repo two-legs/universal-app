@@ -19,7 +19,7 @@ function renderFullPage(html, initialState) {
       </head>
       <body>
         <div id="root">${html}</div>
-        <script type="text/javascript">window.__REDUX_STATE__=${JSON.stringify(initialState)}</script>
+        <script type="text/javascript">window.__PRELOADED_STATE__=${JSON.stringify(initialState)}</script>
         <script type="text/javascript" src="/bundle.js"></script>
       </body>
     </html>
@@ -28,7 +28,7 @@ function renderFullPage(html, initialState) {
 
 function renderApp(req, res) {
   const context = {};
-  const initialState = { value: 1 };
+  const initialState = { main: { value: 1 } };
   const store = createStore();
 
   const html = ReactDOM.renderToString(

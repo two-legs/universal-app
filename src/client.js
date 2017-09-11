@@ -9,8 +9,8 @@ import createStore from './store';
 
 import App from './containers/App/App';
 
-const initialState = window.__REDUX_STATE__ || {};
-delete window.__REDUX_STATE__;
+const initialState = window.__PRELOADED_STATE__ || {};
+delete window.__PRELOADED_STATE__;
 const store = createStore(initialState);
 
 ReactDOM.render((
